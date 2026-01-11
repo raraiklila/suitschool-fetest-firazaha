@@ -23,7 +23,7 @@ async function initBanner() {
     const bannerBg = document.getElementById("bannerBg");
 
     try {
-        const response = await fetch('assets/banner.json');
+        const response = await fetch('/assets/banner.json');
         const data = await response.json();
         
         if (bannerBg && data.imageUrl) {
