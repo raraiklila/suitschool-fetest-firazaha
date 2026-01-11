@@ -355,9 +355,8 @@ async function load() {
     } catch (err) {
     postsContainerEl.innerHTML = `
         <div class="loading">
-        Gagal fetch API.<br>
-        <small>${String(err)}</small><br><br>
-        <small>Kalau error-nya CORS, wajib pakai proxy (sesuai soal).</small>
+            Unable to load ideas at the moment.<br>
+            <small>Please try again later.</small>
         </div>
     `;
     console.error(err);
