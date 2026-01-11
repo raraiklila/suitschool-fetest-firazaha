@@ -19,50 +19,92 @@ function setStateToUrl(next) {
 let state = getStateFromUrl();
 
 // 1) HEADER
+async function initBanner() {
+    const bannerBg = document.getElementById("bannerBg");
+
+    try {
+        const response = await fetch('assets/banner.json');
+        const data = await response.json();
+        
+        if (bannerBg && data.imageUrl) {
+            bannerBg.style.backgroundImage = `url('${data.imageUrl}')`;
+        }
+    } catch (error) {
+        console.error("Gagal memuat banner image:", error);
+    }
+}
+
+initBanner();
+
+// HEADER & PARALLAX 
 const headerEl = document.getElementById("header");
 let lastY = window.scrollY;
 
 function clamp(n, min, max) {
-return Math.max(min, Math.min(max, n));
+    return Math.max(min, Math.min(max, n));
 }
 
 function onScroll() {
-const y = window.scrollY;
-const goingDown = y > lastY;
-const nearTop = y < 10;
+    const y = window.scrollY;
+    const goingDown = y > lastY;
+    const nearTop = y < 10;
 
-// HEADER hide/show 
-if (goingDown && y > 80) headerEl.classList.add("hidden");
-else headerEl.classList.remove("hidden");
+    // HEADER hide/show 
+    if (goingDown && y > 80) headerEl.classList.add("hidden");
+    else headerEl.classList.remove("hidden");
 
-// HEADER glass effect
-if (!nearTop) headerEl.classList.add("scrolled");
-else headerEl.classList.remove("scrolled");
+    // HEADER glass effect
+    if (!nearTop) headerEl.classList.add("scrolled");
+    else headerEl.classList.remove("scrolled");
 
-// PARALLAX: image + text 
-const bg = document.getElementById("bannerBg");
-const text = document.querySelector(".banner-content");
-const banner = document.getElementById("banner");
-const t = clamp(y, 0, 700);
+    // PARALLAX: image + text 
+    const bg = document.getElementById("bannerBg");
+    const text = document.querySelector(".banner-content");
+    const banner = document.getElementById("banner");
+    const t = clamp(y, 0, 700);
 
-if (bg) bg.style.transform = `translateY(${t * 0.18}px)`;
-//if (text) text.style.transform = `translateY(${t * 0.06}px)`;
-if (text) text.style.transform = `translateY(${-t * 0.18}px)`;
+    if (bg) bg.style.transform = `translateY(${t * 0.18}px)`;
+    //if (text) text.style.transform = `translateY(${t * 0.06}px)`;
+    if (text) text.style.transform = `translateY(${-t * 0.18}px)`;
 
-// miring → flat 
-if (banner) {
-    const rect = banner.getBoundingClientRect();
-    const h = banner.offsetHeight || 500;
-    const progress = clamp((-rect.top) / h, 0, 1); // 0..1
-    const clipY = 80 - (80 * progress); 
-    banner.style.setProperty("--clipY", `${clipY}%`);
-}
+    // miring → flat 
+    if (banner) {
+        const rect = banner.getBoundingClientRect();
+        const h = banner.offsetHeight || 500;
+        const progress = clamp((-rect.top) / h, 0, 1); // 0..1
+        const clipY = 80 - (80 * progress); 
+        banner.style.setProperty("--clipY", `${clipY}%`);
+    }
 
     lastY = y;
 }
 
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
+
+// Navigasi Responsive
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
+
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+        
+        const icon = menuToggle.querySelector('i');
+        if (navMenu.classList.contains('open')) {
+            icon.classList.replace('fa-bars', 'fa-xmark');
+        } else {
+            icon.classList.replace('fa-xmark', 'fa-bars');
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+            navMenu.classList.remove('open');
+            menuToggle.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+        }
+    });
+}
 
 // 3) DOM refs
 const showingInfoEl = document.getElementById("showingInfo");

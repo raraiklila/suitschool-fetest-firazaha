@@ -10,12 +10,17 @@
 </head>
 <body>
     <header id="header">
-            <div class="logo">
-            <a class="logo-img" href="#home">
+        <div class="logo">
+            <a class="logo-img" href="index.html">
                 <img src="assets/suitmedia.png" alt="Suitmedia Logo">
             </a>
-            </div>
-        <nav>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav id="navMenu">
             <ul>
                 <li><a href="work.html">Work</a></li>
                 <li><a href="about.html">About</a></li>
@@ -137,7 +142,7 @@
             © Suitmedia 2009-2026. All rights reserved.
         </div>
     </footer>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>AOS.init({offset:0});</script>
 </body>
