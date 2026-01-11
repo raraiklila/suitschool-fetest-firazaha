@@ -1,0 +1,24 @@
+{
+  "name": "suitmediafe-fira",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raraiklila/suitschool-fetest-firazaha.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/raraiklila/suitschool-fetest-firazaha/issues"
+  },
+  "homepage": "https://github.com/raraiklila/suitschool-fetest-firazaha#readme",
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}
