@@ -165,8 +165,11 @@ const IMG_PLACEHOLDER =
     "data:image/gif;base64,R0lGODlhAQABAAAAACw=";
 
 // 5) Fetch API
+const API_BASE = import.meta.env.PROD 
+  ? "https://suitmedia-backend.suitdev.com/api/ideas" 
+  : "/api/ideas";  
 //const API_BASE = "https://suitmedia-backend.suitdev.com/api/ideas";
-const API_BASE = "/api/ideas";
+//const API_BASE = "/api/ideas";
 
 function buildApiUrl() {
     const u = new URL(API_BASE, location.origin);
